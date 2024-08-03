@@ -21,6 +21,8 @@
 
     function updateState(newTodos) {
       // calculate the diff b/w newTodos and oldTodos.
+      
+      
       // More specifically, find out what todos are - 
       // 1. added
       // 2. deleted
@@ -28,6 +30,22 @@
       const added = [];
       const deleted = [];
       const updated = [];
+      newTodos.forEach(newTodo =>{
+        if(!oldTodoState.some(oldTodo => oldTodo.id === newTodo.id)){
+          added.push(newTodo);
+        }
+      });
+      oldTodoState.forEach(oldTodo =>{
+        if(!newTodos.some(newTodo => oldTodo.id === newTodo.id)){
+          deleted.push(oldtodo);
+        }
+      });
+      newTodos.forEach(newTodo =>{
+        const oldTodo=oldTodoState.find(oldTodo => oldTodo.id === newTodo.id);
+        if(oldTodo && (oldTodo.title !== newTodo.title || oldTodo.description !== newTodo.description)){
+          updated.push({oldTodo,newTodo});
+        }
+      });
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
