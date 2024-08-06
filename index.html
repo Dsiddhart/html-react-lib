@@ -8,18 +8,24 @@
     let oldTodoState = [];
 
     function addTodoToDom(todo) {
-      const todoElemnt=document.createElement("div");
+      const todoElement=document.createElement("div");
       todoElement.setAttribute("id",`todo-${todo.id}`);
-      todoElemnt.innerHTML=`<h2>${todo.title}</h2><p>${todo.description}</p><button onclick="removeTodo(${todo.id})">Mark as done</button>`;
+      todoElement.innerHTML=`<h2>${todo.title}</h2><p>${todo.description}</p><button onclick="removeTodoFromDom(${todo.id})">Mark as done</button>`;
       document.getElementById("todos").appendChild(todoElement);
     }
 
-    function removeTodoFromDom(todo) {
-      
+    function removeTodoFromDom(todoId) {
+      const todoremove=document.getElementById(`todo-${todoId}`);
+      if(todoremove){
+        document.getElementById("todos").removeChild(todoremove);
+      }
     }
 
     function updateTodoInDom(oldTodo, newTodo) {
-        
+        const updateElement=document.getElementById(`todo-${oldTodo.id}`);
+        if(updateElement){
+          updateElement.innerHTML=`<h2>${newTodo.title}</h2><p>${newTodo.description}</p><button onclick="removeTodoFromDom(${newTodo.id})">Mark as done</button>`;
+        }
     }
 
     function updateState(newTodos) {
@@ -52,6 +58,9 @@
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
+     added.forEach(todo=>addTodoToDom(todo)) ;
+     deleted.forEach(todo=>removeTodoFromDom(todo.id));
+     updated.forEach(({oldTodo,newTodo})=>updateTodoInDom(oldTodo,newTodo));
       oldTodoState = newTodos;
     }
 
