@@ -7,8 +7,11 @@
     let todoState = [];
     let oldTodoState = [];
 
-    function addTodoToDom() {
-      
+    function addTodoToDom(todo) {
+      const todoElemnt=document.createElement("div");
+      todoElement.setAttribute("id",`todo-${todo.id}`);
+      todoElemnt.innerHTML=`<h2>${todo.title}</h2><p>${todo.description}</p><button onclick="removeTodo(${todo.id})">Mark as done</button>`;
+      document.getElementById("todos").appendChild(todoElement);
     }
 
     function removeTodoFromDom(todo) {
