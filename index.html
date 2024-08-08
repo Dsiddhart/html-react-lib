@@ -46,7 +46,7 @@
       });
       oldTodoState.forEach(oldTodo =>{
         if(!newTodos.some(newTodo => oldTodo.id === newTodo.id)){
-          deleted.push(oldtodo);
+          deleted.push(oldTodo);
         }
       });
       newTodos.forEach(newTodo =>{
@@ -55,13 +55,20 @@
           updated.push({oldTodo,newTodo});
         }
       });
+      // console.log(added);
+      // console.log(deleted);
+      // console.log(updated);
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
      added.forEach(todo=>addTodoToDom(todo)) ;
      deleted.forEach(todo=>removeTodoFromDom(todo.id));
      updated.forEach(({oldTodo,newTodo})=>updateTodoInDom(oldTodo,newTodo));
-      oldTodoState = newTodos;
+      oldTodoState=[...newTodos];
+      // console.log(added[0]);
+      // console.log(added[1]);
+      // console.log(deleted[0]);
+      // console.log(deleted[1]);
     }
 
     function addTodo() {
